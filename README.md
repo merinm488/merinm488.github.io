@@ -33,16 +33,9 @@ merinm488.github.io/
 
 ## Running Locally
 
-To test changes locally, you need a local web server (browsers block direct file reading for security):
+To test changes locally, you need a local web server 
 
-### Start the Server
-
-```bash
-cd /Users/merin/code/claude_practice/projects/merinm488.github.io
-python3 -m http.server 8000
-```
-
-Then open: **http://localhost:8000**
+Start the server,then open: **http://localhost:8000**
 
 ### Stop the Server
 
