@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My GitHub Pages Journey</title>
+    <!-- marked.js library - converts Markdown to HTML -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -46,6 +48,7 @@
             font-size: 1.1em;
         }
 
+        /* Blog post wrapper */
         .blog-post {
             margin-bottom: 50px;
         }
@@ -83,6 +86,50 @@
             margin-bottom: 8px;
         }
 
+        /* Styles for rendered Markdown content in #blog-content */
+        #blog-content h2 {
+            color: #333;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            margin-top: 40px;
+        }
+
+        #blog-content h3 {
+            color: #4a90e2;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        #blog-content p {
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+
+        #blog-content em {
+            color: #888;
+            font-size: 0.9em;
+        }
+
+        #blog-content ul, #blog-content ol {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+
+        #blog-content li {
+            margin-bottom: 8px;
+        }
+
+        #blog-content hr {
+            border: none;
+            border-top: 2px solid #e0e0e0;
+            margin: 40px 0;
+        }
+
+        #blog-content strong {
+            font-weight: 600;
+        }
+
         footer {
             text-align: center;
             margin-top: 50px;
@@ -108,109 +155,32 @@
             <p>Learning to create and host my first website</p>
         </header>
 
-        <main>
-            <article class="blog-post">
-                <h2>Welcome to My Blog!</h2>
-                <p class="date">January 15, 2026</p>
-                
-                <p>
-                    Hi! I'm starting this blog to document my journey learning GitHub Pages. This is my very first HTML file, and I'm excited to share what I learn along the way.
-                </p>
-                
-                <p>
-                    <strong>What is GitHub Pages?</strong> It's a free service from GitHub that lets you host websites directly from a GitHub repository. It's completely free and you don't need to manage any servers!
-                </p>
-
-                <h3>Why I'm Doing This</h3>
-                <p>I wanted to learn web development and GitHub Pages seemed like the perfect place to start because:</p>
-                <ul>
-                    <li>It's free (no hosting costs)</li>
-                    <li>It's simple to get started</li>
-                    <li>I can learn HTML, CSS, and Git at the same time</li>
-                    <li>My projects are automatically backed up on GitHub</li>
-                </ul>
-
-                
-            </article>
-
-            <article class="blog-post">
-                <h2>Setting Up My First Repository</h2>
-      
-
-                <p>
-                    Today I created my first GitHub repository and published this blog. Here's exactly what I did:
-                </p>
-
-                <h3>Step 1: Sign in to GitHub Account</h3>
-                <p>
-                    I went to <a href="https://github.com" target="_blank">github.com</a> and signed in.
-                </p>
-
-                <h3>Step 2: Created My Repository</h3>
-                <p>
-                    I clicked the "+" button, selected "New repository", and named it correctly. I also made sure it was set to "Public" because that's required for free hosting.
-                </p>
-
-                <h3>Step 3: Created index.html</h3>
-                <p>
-                    This is the file you're reading right now! I created it directly on GitHub by clicking "Add file" and then "Create new file". I named it "index.html" and added my HTML code.
-                </p>
-
-                <h3>Step 4: Enabled GitHub Pages</h3>
-                <p>
-                    I went to Settings, then clicked on "Pages" in the sidebar. Under "Source", I selected the "main" branch and clicked Save. Within a few minutes, my site was live!
-                </p>
-
-                <h3>What I Learned:</h3>
-                <p>
-                    The most important thing I learned is that GitHub Pages only works with static files - HTML, CSS, and JavaScript. No server-side code. 
-                </p>
-            </article>
-
-            <article class="blog-post">
-                <h2>What Next: Adding CSS Styles</h2>
-                <p class="date">January 16, 2026</p>
-
-                <p>
-                    In my next post, I'll explore CSS and make this blog look even better. I'll learn about:
-                </p>
-                <ul>
-                    <li>Creating a separate CSS file</li>
-                    <li>Choosing colors and fonts</li>
-                    <li>Making the blog mobile-friendly</li>
-                    <li>Adding images</li>
-                </ul>
-              
-            </article>
-
-            <article class="blog-post">
-                <h2>Helpful Resources</h2>
-                <p class="date">Updated January 15, 2026</p>
-
-                <p>Here are some websites that are helping me learn:</p>
-
-                <h3>Official Documentation</h3>
-                <ul>
-                    <li><a href="https://pages.github.com/" target="_blank">GitHub Pages Official Site</a></li>
-                    <li><a href="https://docs.github.com/en/pages" target="_blank">GitHub Pages Docs</a></li>
-                </ul>
-
-                <h3>Learning HTML & CSS</h3>
-                <ul>
-                    <li><a href="https://www.w3schools.com/html/" target="_blank">W3Schools HTML Tutorial</a></li>
-                    
-                </ul>
-              <p>
-                  I'll keep adding more resources as I find them!
-              </p>
-
-            </article>
-        </main>
+        <!-- Blog content will be rendered here by JavaScript -->
+        <main id="blog-content"></main>
 
         <footer>
             <p>&copy; 2026 My GitHub Pages Journey</p>
             <p>Built with HTML and hosted on GitHub Pages</p>
         </footer>
     </div>
+
+    <!-- JavaScript to load and render Markdown content -->
+    <script>
+        // Wait for the page to finish loading before running our code
+        document.addEventListener('DOMContentLoaded', async function() {
+
+            // Step 1: Fetch (read) the data.md file from the server
+            const response = await fetch('data.md');
+
+            // Step 2: Convert the response to plain text
+            const markdownText = await response.text();
+
+            // Step 3: Convert Markdown to HTML using marked.js
+            const htmlContent = marked.parse(markdownText);
+
+            // Step 4: Find our container and put the HTML inside it
+            document.getElementById('blog-content').innerHTML = htmlContent;
+        });
+    </script>
 </body>
 </html>
